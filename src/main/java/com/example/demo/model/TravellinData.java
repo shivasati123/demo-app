@@ -26,6 +26,9 @@ public class TravellinData {
     private String imageUrl;
 
     @Column
+    private String postedBy;
+
+    @Column
     @CreationTimestamp
     Timestamp createdAt;
 
