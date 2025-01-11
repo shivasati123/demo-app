@@ -2,14 +2,16 @@ package com.example.demo.controller;
 
 
 import com.example.demo.model.TravellinData;
+import com.example.demo.response.ResponseHandler;
 import com.example.demo.service.UploadDataService;
 import com.example.demo.service.UploadDataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class HomeController {
@@ -17,18 +19,15 @@ public class HomeController {
     @Autowired
     UploadDataServiceImpl uploadDataService;
 
-    @PostMapping("/save-data")
-    public String saveData(@RequestParam("data") String data,
-                       @RequestParam("image_url") String image){
-        TravellinData travellinData =  new TravellinData();
-        travellinData.setText(data);
-        travellinData.setImage_url(image);
-        uploadDataService.uploadData(travellinData);
-        return "index";
+    @PostMapping("api/v1/data")
+    public ResponseEntity<Object> saveData(@RequestBody TravellinData travellinData){
+        TravellinData data = uploadDataService.uploadData(travellinData);
+        return ResponseHandler.buildResponse("Data Added Successfully", HttpStatus.CREATED,data);
     }
 
-    @GetMapping("/home")
-    public String home(){
-        return "index";
+    @GetMapping("api/v1/data")
+    public  ResponseEntity<Object> getData(){
+        List<TravellinData> dataList = uploadDataService.getuploadData();
+        return ResponseHandler.buildResponse("Data Fetched Successfully", HttpStatus.OK,dataList);
     }
 }

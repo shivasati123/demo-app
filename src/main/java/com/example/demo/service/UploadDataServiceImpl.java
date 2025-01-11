@@ -5,6 +5,8 @@ import com.example.demo.repository.TravellinDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class UploadDataServiceImpl  implements  UploadDataService {
@@ -14,6 +16,11 @@ public class UploadDataServiceImpl  implements  UploadDataService {
     @Override
     public TravellinData uploadData(TravellinData data) {
        return travlleinDataRepo.save(data);
+    }
+
+    @Override
+    public List<TravellinData> getuploadData() {
+        return travlleinDataRepo.findAll();
     }
 }
 

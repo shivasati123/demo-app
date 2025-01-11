@@ -2,44 +2,42 @@ package com.example.demo.model;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "travellin_data")
+@Getter
+@Setter
 public class TravellinData {
     @Id  // Primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // Auto-generate ID
     private Long id;
 
+
+    @Column
     private String text;
 
-    public Long getId() {
-        return id;
-    }
+    @Column
+    private String imageUrl;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column
+    @CreationTimestamp
+    Timestamp createdAt;
 
-    public String getText() {
-        return text;
-    }
+    @Column
+    @CreationTimestamp
+    Timestamp updatedAt;
 
-    public void setText(String text) {
-        this.text = text;
-    }
 
-    public String getImage_url() {
-        return image_url;
-    }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
-    }
 
-    private String image_url;
 
-    // Constructor with fields
+
 
 
 }
